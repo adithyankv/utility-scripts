@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # small utility script to compile latex files to pdf with some sensible defaults
-# for calling directly from other scripts
+# for calling directly from other scripts. Formats the errors nicely as opposed
+# to the default large wall of text
 
 filename=$1
 
@@ -15,8 +16,13 @@ reset='\033[0m'
 stdout=$(pdflatex --interaction nonstopmode --file-line-error $filename)
 compilation_status=$?
 
+# when given the file-line-error flag pdflatex outputs errors in
+# filename:linenumber:error format which can be extracted using grep
+errors=$(echo "$stdout"|grep "^.*:[0-9]*: .*$")
+
 if [ $compilation_status -eq 0 ]; then
     echo "Compiled $1 succesfully"
 else
     echo "$red Compilation failed... $reset"
+    echo "$red $errors $reset"
 fi
