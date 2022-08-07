@@ -4,6 +4,11 @@
 # for calling directly from other scripts. Formats the errors nicely as opposed
 # to the default large wall of text
 
+if [ $# -eq 0 ]; then
+    echo "Error: Expected atleast one filename argument"
+    exit 2
+fi
+
 filename=$1
 
 # color escape codes
