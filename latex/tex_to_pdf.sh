@@ -28,6 +28,6 @@ errors=$(echo "$stdout"|grep "^.*:[0-9]*: .*$")
 if [ $compilation_status -eq 0 ]; then
     echo "Compiled $1 succesfully"
 else
-    echo "$red Compilation failed... $reset"
-    echo "$red $errors $reset"
+    echo $red"Compilation failed..."$reset
+    echo "$red$errors$reset"
 fi
